@@ -29,4 +29,8 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Collection> collections = new ArrayList<>();
 
+    public User(String name) {
+        this.name = name;
+    }
+
 }

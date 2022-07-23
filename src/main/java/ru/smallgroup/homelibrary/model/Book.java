@@ -16,7 +16,7 @@ import javax.validation.constraints.Size;
 public class Book {
 
     public enum Status {
-        IN_PROCESS, FINISHED
+        IN_PROCESS, COMPLETED
     }
 
 
@@ -39,5 +39,11 @@ public class Book {
     @NotNull
     @Enumerated(EnumType.STRING)
     private Status status;
+
+    @ManyToOne
+    private Collection collection;
+
+    @ManyToOne
+    private Store store;
 
 }

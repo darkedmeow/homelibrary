@@ -41,4 +41,9 @@ public class User {
         collection.setOwner(this);
     }
 
+    public void addRoom(Room room) {
+        this.rooms.add(room);
+        room.setOwner(this);
+    }
+
 }

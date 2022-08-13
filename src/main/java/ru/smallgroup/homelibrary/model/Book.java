@@ -1,5 +1,6 @@
 package ru.smallgroup.homelibrary.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -41,9 +42,11 @@ public class Book {
     private Status status;
 
     @ManyToOne
+    @JsonIgnore
     private Collection collection;
 
     @ManyToOne
+    @JsonIgnore
     private Store store;
 
 }

@@ -34,4 +34,9 @@ public class Collection {
     @OneToMany(mappedBy = "collection", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Book> books = new ArrayList<>();
 
+    public void addBook(Book book) {
+        this.books.add(book);
+        book.setCollection(this);
+    }
+
 }

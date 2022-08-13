@@ -1,5 +1,6 @@
 package ru.smallgroup.homelibrary.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -24,10 +25,15 @@ public class Store {
     private String name;
 
     @ManyToOne
+    @JsonIgnore
     private Room room;
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Book> books = new ArrayList<>();
 
+    public void addBook(Book book) {
+        this.books.add(book);
+        book.setStore(this);
+    }
 
 }

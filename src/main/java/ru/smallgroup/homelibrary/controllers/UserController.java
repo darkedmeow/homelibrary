@@ -1,7 +1,6 @@
 package ru.smallgroup.homelibrary.controllers;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.smallgroup.homelibrary.exceptions.UserNotFoundException;
@@ -40,8 +39,8 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public User addUser(@RequestBody User user) {
-        return service.createUser(user);
+    public ResponseEntity<User> addUser(@RequestBody User user) {
+        return new ResponseEntity<User>(service.createUser(user), HttpStatus.CREATED);
     }
 
 

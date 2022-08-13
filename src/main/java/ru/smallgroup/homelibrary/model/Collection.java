@@ -1,5 +1,7 @@
 package ru.smallgroup.homelibrary.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,7 +19,7 @@ import java.util.List;
 public class Collection {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotEmpty
@@ -26,6 +28,7 @@ public class Collection {
 
     @ManyToOne
     @NotNull
+    @JsonIgnore
     private User owner;
 
     @OneToMany(mappedBy = "collection", cascade = CascadeType.ALL, orphanRemoval = true)

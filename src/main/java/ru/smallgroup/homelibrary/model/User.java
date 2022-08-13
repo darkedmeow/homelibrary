@@ -2,6 +2,8 @@ package ru.smallgroup.homelibrary.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -16,7 +18,7 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotEmpty
@@ -32,6 +34,11 @@ public class User {
 
     public User(String name) {
         this.name = name;
+    }
+
+    public void addCollection(Collection collection) {
+        this.collections.add(collection);
+        collection.setOwner(this);
     }
 
 }

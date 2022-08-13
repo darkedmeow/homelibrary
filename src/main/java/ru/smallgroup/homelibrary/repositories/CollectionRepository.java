@@ -4,9 +4,11 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import ru.smallgroup.homelibrary.model.Collection;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface CollectionRepository extends CrudRepository<Collection, Long> {
     Optional<Collection> findCollectionByName(String name);
+    Optional<List<Collection>> findAllByOwnerId(Long id);
 }

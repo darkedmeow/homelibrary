@@ -37,7 +37,6 @@ public class Book {
     @Size(max = 200, message = "Author")
     private String description;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
     private Status status;
 

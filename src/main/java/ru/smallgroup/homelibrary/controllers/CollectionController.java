@@ -1,6 +1,7 @@
 package ru.smallgroup.homelibrary.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.smallgroup.homelibrary.model.Collection;
 import ru.smallgroup.homelibrary.model.User;
@@ -23,11 +24,13 @@ public class CollectionController {
     }
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<Collection> getAllByUserId(@PathVariable("id") Long id) {
         return service.findAllByUserId(id);
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public User createCollection(@PathVariable("id") Long id, @RequestBody Collection collection) {
         return userService.addCollection(
                 userService.getUserById(id),

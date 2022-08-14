@@ -1,8 +1,10 @@
 package ru.smallgroup.homelibrary.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.smallgroup.homelibrary.model.Book;
 import ru.smallgroup.homelibrary.repositories.BookRepository;
+import ru.smallgroup.homelibrary.repositories.CollectionRepository;
 
 import java.util.List;
 
@@ -10,12 +12,26 @@ import java.util.List;
 public class BookService {
 
     private final BookRepository bookRepository;
+    private final CollectionRepository collectionRepository;
 
-    public BookService(BookRepository bookRepository) {
+    @Autowired
+    public BookService(BookRepository bookRepository, CollectionRepository repository) {
         this.bookRepository = bookRepository;
+        this.collectionRepository = repository;
     }
 
-    public List<Book> getBooks(Long id) {
-        return null;
+    public Book getBookById(Long id) {
+        return bookRepository.findById(id).orElseThrow();
+    }
+
+    public List<Book> getBooksByCollectionId(Long id) {
+        return bookRepository.findAllByCollectionId(id).orElseThrow();
+    }
+
+    public Book addBook(Long collectionId, Book book) {
+        collectionRepository.findById(collectionId).ifPresent(
+                collection -> collection.addBook(book)
+        );
+        return bookRepository.save(book);
     }
 }

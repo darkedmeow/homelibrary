@@ -43,11 +43,4 @@ public class UserController {
         return new ResponseEntity<>(service.createUser(user), HttpStatus.CREATED);
     }
 
-
-    @ResponseBody
-    @ExceptionHandler(UserNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String userNotFound(UserNotFoundException ex) {
-        return ex.getMessage();
-    }
 }

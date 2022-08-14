@@ -6,6 +6,7 @@ import ru.smallgroup.homelibrary.exceptions.CollectionNotFound;
 import ru.smallgroup.homelibrary.model.Book;
 import ru.smallgroup.homelibrary.model.Collection;
 import ru.smallgroup.homelibrary.repositories.CollectionRepository;
+import ru.smallgroup.homelibrary.repositories.UserRepository;
 
 import java.util.List;
 
@@ -13,23 +14,25 @@ import java.util.List;
 public class CollectionService {
 
     private final CollectionRepository repository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public CollectionService(CollectionRepository repository) {
+    public CollectionService(CollectionRepository repository, UserRepository userRepository) {
         this.repository = repository;
+        this.userRepository = userRepository;
     }
 
     public List<Collection> findAllByUserId(Long id) {
         return repository.findAllByOwnerId(id).orElseThrow();
     }
 
-    public Collection addBook(Collection collection, Book book) {
-        collection.addBook(book);
-        return repository.save(collection);
-    }
-
     public Collection getCollectionById(Long id) {
         return repository.findById(id).orElseThrow(() -> new CollectionNotFound(id));
+    }
+
+    public Collection addCollection(Long uid, Collection collection) {
+        userRepository.findById(uid).ifPresent(user -> user.addCollection(collection));
+        return repository.save(collection);
     }
 
 }

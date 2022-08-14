@@ -1,8 +1,10 @@
 package ru.smallgroup.homelibrary.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -28,6 +30,7 @@ public class Store {
     @JsonIgnore
     private Room room;
 
+    @Setter(AccessLevel.NONE)
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Book> books = new ArrayList<>();
 

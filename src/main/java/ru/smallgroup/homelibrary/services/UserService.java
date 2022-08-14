@@ -37,14 +37,4 @@ public class UserService {
     public User getUserByName(String name) {
         return repository.findUserByName(name).orElseThrow(() -> new UserNotFoundException(name));
     }
-
-    public User addCollection(User user, Collection collection) {
-        user.addCollection(collection);
-        return repository.save(user);
-    }
-
-    public User addRoom(User user, Room room) {
-        user.addRoom(room);
-        return repository.save(user);
-    }
 }

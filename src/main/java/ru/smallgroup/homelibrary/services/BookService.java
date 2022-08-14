@@ -2,7 +2,7 @@ package ru.smallgroup.homelibrary.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.smallgroup.homelibrary.exceptions.CollectionNotFound;
+import ru.smallgroup.homelibrary.exceptions.CollectionNotFoundException;
 import ru.smallgroup.homelibrary.model.Book;
 import ru.smallgroup.homelibrary.repositories.BookRepository;
 import ru.smallgroup.homelibrary.repositories.CollectionRepository;
@@ -32,7 +32,7 @@ public class BookService {
     public Book addBook(Long collectionId, Book book) {
         collectionRepository.findById(collectionId).ifPresentOrElse(
                 collection -> collection.addBook(book),
-                () -> {throw new CollectionNotFound(collectionId);});
+                () -> {throw new CollectionNotFoundException(collectionId);});
         return bookRepository.save(book);
     }
 }

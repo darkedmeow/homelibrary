@@ -3,6 +3,7 @@ package ru.smallgroup.homelibrary.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.smallgroup.homelibrary.exceptions.CollectionNotFound;
+import ru.smallgroup.homelibrary.exceptions.UserNotFoundException;
 import ru.smallgroup.homelibrary.model.Book;
 import ru.smallgroup.homelibrary.model.Collection;
 import ru.smallgroup.homelibrary.repositories.CollectionRepository;
@@ -31,7 +32,10 @@ public class CollectionService {
     }
 
     public Collection addCollection(Long uid, Collection collection) {
-        userRepository.findById(uid).ifPresent(user -> user.addCollection(collection));
+        userRepository.findById(uid).ifPresentOrElse(
+                user -> user.addCollection(collection),
+                () -> {throw new UserNotFoundException(uid);}
+        );
         return repository.save(collection);
     }
 

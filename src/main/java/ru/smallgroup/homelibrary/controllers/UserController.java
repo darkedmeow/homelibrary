@@ -34,13 +34,13 @@ public class UserController {
 
 
     @GetMapping("/users/{id}")
-    public User getOne(@PathVariable("id") Long id) {
-        return service.getUserById(id);
+    public ResponseEntity<User> getOne(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(service.getUserById(id), HttpStatus.FOUND);
     }
 
     @PostMapping("/users")
     public ResponseEntity<User> addUser(@RequestBody User user) {
-        return new ResponseEntity<User>(service.createUser(user), HttpStatus.CREATED);
+        return new ResponseEntity<>(service.createUser(user), HttpStatus.CREATED);
     }
 
 

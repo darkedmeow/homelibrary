@@ -1,8 +1,10 @@
 package ru.smallgroup.homelibrary.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.smallgroup.homelibrary.exceptions.UserNotFoundException;
 import ru.smallgroup.homelibrary.model.Collection;
+import ru.smallgroup.homelibrary.model.Room;
 import ru.smallgroup.homelibrary.model.User;
 import ru.smallgroup.homelibrary.repositories.UserRepository;
 
@@ -15,6 +17,7 @@ public class UserService {
 
     private final UserRepository repository;
 
+    @Autowired
     public UserService(UserRepository repository) {
         this.repository = repository;
     }
@@ -37,6 +40,11 @@ public class UserService {
 
     public User addCollection(User user, Collection collection) {
         user.addCollection(collection);
+        return repository.save(user);
+    }
+
+    public User addRoom(User user, Room room) {
+        user.addRoom(room);
         return repository.save(user);
     }
 }
